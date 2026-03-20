@@ -34,13 +34,15 @@ public class Main {
 
     public static void makeImgsGoog2() {
 
+        new File(basePath + "ready/imgsNoto125/").mkdirs();
+
         for (Map.Entry<String, DrawableInfo> entry: rects.entrySet()) {
             try {
                 DrawableInfo drInfo = entry.getValue();
                 String emojiKey = entry.getKey();
                 String pathKey = "emoji_u" + emojiKey.replace("-","_");
 
-                String path = basePath + "inputs/noto-emoji-mar23/72/" + pathKey + ".png";
+                String path = basePath + "inputs/noto-emoji-sep25/72/" + pathKey + ".png";
                 File f = new File(path);
                 boolean exists = false;
                 if(f.exists()) {
@@ -70,7 +72,7 @@ public class Main {
                             }
                         }
                         pathKey = "emoji_u" + newS;
-                        path = basePath + "inputs/noto-emoji-mar23/72/" + pathKey + ".png";
+                        path = basePath + "inputs/noto-emoji-sep25/72/" + pathKey + ".png";
                         f = new File(path);
                         if(f.exists()) {
                             exists = true;
@@ -88,7 +90,7 @@ public class Main {
                 if (exists) {
                     BufferedImage image72 = ImageIO.read(f);
                     BufferedImage image66 = resize(image72, 66,66);
-                    ImageIO.write(image66, "PNG", new File(basePath+"ready/imgsNoto101/"+drInfo.page + "_" + drInfo.page2+".png"));
+                    ImageIO.write(image66, "PNG", new File(basePath+"ready/imgsNoto125/"+drInfo.page + "_" + drInfo.page2+".png"));
                 } else {
                     System.out.println("(GOOGLE) ERROR MISSING: " +drInfo.page + "_" + drInfo.page2 + "::"+ emojiKey);
                 }
