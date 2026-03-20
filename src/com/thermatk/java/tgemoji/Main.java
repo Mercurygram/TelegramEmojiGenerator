@@ -24,6 +24,14 @@ class DrawableInfo {
 public class Main {
     public static final String basePath = "workfiles/";
     public static HashMap<String, DrawableInfo> rects = new HashMap<>();
+    public static final HashMap<String, String> compactNotoMap = new HashMap<>();
+    static {
+        String[] skins = {"1f3fb", "1f3fc", "1f3fd", "1f3fe", "1f3ff"};
+        for (String s : skins) {
+            compactNotoMap.put("1f9d1-" + s + "-200d-2764-fe0f-200d-1f9d1-" + s, "1f491_" + s);
+            compactNotoMap.put("1f9d1-" + s + "-200d-2764-fe0f-200d-1f48b-200d-1f9d1-" + s, "1f48f_" + s);
+        }
+    }
 
     public static void main(String[] args) {
         doTheMap();
@@ -76,7 +84,15 @@ public class Main {
                         f = new File(path);
                         if(f.exists()) {
                             exists = true;
-                        } else {
+                        } else if (compactNotoMap.containsKey(emojiKey)) {
+                            pathKey = "emoji_u" + compactNotoMap.get(emojiKey);
+                            path = basePath + "inputs/noto-emoji-sep25/72/" + pathKey + ".png";
+                            f = new File(path);
+                            if(f.exists()) {
+                                exists = true;
+                            }
+                        }
+                        if (!exists) {
                             // Twemoji fallback
                             path = basePath + "inputs/twemoji-master14/72x72/" + emojiKey + ".png";
                             f = new File(path);
